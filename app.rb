@@ -18,5 +18,6 @@ end
 #----------------
 
 get '/' do
-  erb :index
+    
+    erb :index
 end
