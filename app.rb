@@ -17,7 +17,11 @@ libs.each do |lib|
 end
 #----------------
 
+# database
+$db = SQLite3::Database.open("database.db")
+#---------
+
 get '/' do
-    
+
     erb :index
 end
