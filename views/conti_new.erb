@@ -1,0 +1,42 @@
+<div id="main">
+    <div class="content">
+        <h1 class="content-subhead">Crea un nuovo Conto</h1>
+    </div>
+<form class="pure-form pure-form-aligned" action="/conti/new" method="post">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="nome_conto">Nome Conto</label>
+            <input id="nome_conto" type="text" placeholder="Nome Conto" required />
+        </div>
+
+        <div class="pure-control-group">
+            <label for="tipo_conto">Tipo Conto</label>
+            <select id="tipo_conto">
+                <option value="fa-university">&#xf19c; Conto Bancario</option>
+                <option value="fa-money">&#xf0d6; Portafogli</option>
+                <option value="fa-paypal">&#xf1ed; PayPal</option>
+                <option value="fa-credit-card">&#xf09d; Carta di Credito</option>
+            </select>
+        </div>
+
+        <div class="pure-control-group">
+            <label for="valuta">Valuta</label>
+            <input id="text" type="text" placeholder="Valuta" required />
+        </div>
+
+        <div class="pure-control-group">
+            <label for="l_inizio">Liquidit&agrave; iniziale</label>
+            <input id="l_iniziio" type="text" placeholder="Liquidit&agrave; iniziale" required />
+        </div>
+
+        <fieldset class="pure-group">
+            <input type="text" class="pure-input-1-2" placeholder="Indirizzo">
+            <input type="text" class="pure-input-1-2" placeholder="N&deg; di telefono">
+        </fieldset>
+        
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Crea</button>
+        </div>
+    </fieldset>
+</form>
+</div>

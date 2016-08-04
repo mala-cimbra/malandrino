@@ -25,10 +25,15 @@ get '/conti' do
     erb :conti
 end
 
-get '/conti/:id' do |id|
+get '/conti/new' do
+    erb :conti_new
 end
 
-get '/conti/new' do
+post '/conti/new' do
+    redirect to('/conti')
+end
+
+get '/conti/:id' do |id|
 end
 
 get '/conti/edit/:id' do |id|
