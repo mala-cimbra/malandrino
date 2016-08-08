@@ -7,12 +7,16 @@
 
     <title>Malandrino - Il gestionale per squattrinati!</title>
 
-    <link rel="stylesheet" href="/css/pure-min.css">
-    <link rel="stylesheet" href="/css/grids-responsive-min.css">
-    <link rel="stylesheet" href="/css/layouts/side-menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/pure-min.css">
+    <link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css">
+    <link rel="stylesheet" type="text/css" href="/css/layouts/side-menu.css">
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
+    <link href="/css/jquery-ui.min.css" rel="stylesheet" />
 
     <script src="/js/modernizr-custom.js" type="text/javascript"></script>
+
+	<script src="/js/jquery-3.1.0.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
 
 </head>
 <body>
@@ -58,7 +62,19 @@
 
 
 
-
+    <script>$(function() {
+    // Check if the browser supports the date input type
+    if (!Modernizr.inputtypes.date){
+        // Add the jQuery UI DatePicker to all
+        // input tags that have their type attributes
+        // set to 'date'
+        $('input[type=date]').datepicker({
+            // specify the same format as the spec
+            dateFormat: 'yy-mm-dd'
+        });
+    }
+});
+</script>
 <script src="/js/ui.js" type="text/javascript"></script>
 
 

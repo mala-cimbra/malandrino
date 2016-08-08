@@ -35,6 +35,7 @@ get '/operazioni/new' do
     @conti = $db.execute("SELECT id, nome_conto, tipo_conto FROM conti;")
     @beneficiari = $db.execute("SELECT * from beneficiari;")
     @categorie = $db.execute("SELECT * FROM categorie;")
+    @tipo_transizione = $db.execute("SELECT * from tipo_transizione;")
     
     @conti.map do |conto|
         case conto[2]
@@ -57,6 +58,16 @@ get '/operazioni/new' do
 end
 
 post '/operazioni/new' do
+    # dati che non sono da controllare
+    id_conto = params["conto"].to_i
+    soldi = params["importo"].to_f
+    
+    # dati da controllare col db ed eventualmente aggiungere o dare un id
+    tmp_data_operazione = params["data"]
+    tmp_beneficiario = params["beneficiario"]
+    tmp_tipo_operazione = params["tipo_operazione"]
+    tmp_categoria = params["categoria"]
+    
     
     
     redirect to ('/operazioni')
