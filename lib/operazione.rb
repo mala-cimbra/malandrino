@@ -13,14 +13,52 @@ pagina per la gestione delle operazioni
 =end
 
 get '/operazioni' do
+    # tirami fuori la lista delle operazioni
     @lista_operazioni = $db.execute("SELECT * FROM operazioni;")
+
+    if @lista_operazioni.empty?
+        erb :operazioni_vuoto
+    else
+        erb :operazioni
+    end
+    # ora la rogna è mappare gli indici id_* alla tabella
+    # quindi sotto di .map
+    # id_conto -> questo è un combobox
+    # id_beneficiario -> questo ci vuole l'autocomplete e nel caso la creazione dinamica
+    # id_tipo_transizione -> idem
+    # id_categoria -> idem
 end
 
 get '/operazioni/new' do
-
+    # per prima cosa listare i conti presenti
+    # select * from conti;
+    @conti = $db.execute("SELECT id, nome_conto, tipo_conto FROM conti;")
+    @beneficiari = $db.execute("SELECT * from beneficiari;")
+    @categorie = $db.execute("SELECT * FROM categorie;")
+    
+    @conti.map do |conto|
+        case conto[2]
+        when "banca"
+            conto[2] = "&#xf19c;" # html entity della banca
+        when "cartacredito"
+            conto[2] = "&#xf09d;"
+        when "portafogli"
+            conto[2] = "&#xf0d6;"
+        when "paypal"
+            conto[2] = "&#xf1ed;"
+        else
+            conto[2] = "&#xf059;"
+        end
+    end
+    
+    debug("conti", @conti)
+    
+    erb :operazioni_new
 end
 
 post '/operazioni/new' do
+    
+    
     redirect to ('/operazioni')
 end
 
@@ -29,4 +67,7 @@ get '/operazioni/:id' do |id|
 end
 
 get '/operazioni/edit/:id' do |id|
+end
+
+get '/operazioni/delete/:id' do |id|
 end

@@ -16,26 +16,35 @@ I conti sono gestiti da una tabella conti
 =end
 
 get '/conti' do
+    # tiro fuori la lista dei conti
+    # il dato è posto come
+    # [[conto1], [conto2], ...]
     @lista_conti = $db.execute("SELECT * FROM conti;")
+    
+    # se i conti sono più di zero...
+    # magari bisogna renderlo più elegante
+    # solo che mi scazza avere HTML nel codice, preferirei avere tutto su erb
     if @lista_conti.count > 0
         @message = "Hai più di un conto."
     else
         @message = "Non hai nessun conto. Creane uno!"
     end
+    
+    # mappa l'icona
+    # per ogni array cambia l'indice 2 con l'html dell'icona
     @lista_conti.map do |riga_conto|
         case riga_conto[2]
         when "banca"
-            icona = "<i class=\"fa fa-university\" aria-hidden=\"true\"></i>"
+            riga_conto[2] = "<i class=\"fa fa-university\" aria-hidden=\"true\"></i>"
         when "portafogli"
-            icona = "<i class=\"fa fa-money\" aria-hidden=\"true\"></i>"
+            riga_conto[2] = "<i class=\"fa fa-money\" aria-hidden=\"true\"></i>"
         when"cartacredito"
-            icona = "<i class=\"fa fa-credit-card\" aria-hidden=\"true\"></i>"
+            riga_conto[2] = "<i class=\"fa fa-credit-card\" aria-hidden=\"true\"></i>"
         when "paypal"
-            icona = "<i class=\"fa fa-paypal\" aria-hidden=\"true\"></i>"
+            riga_conto[2] = "<i class=\"fa fa-paypal\" aria-hidden=\"true\"></i>"
         else
-            icona = "<i class=\"fa fa-question-circle\" aria-hidden=\"true\"></i>"
+            riga_conto[2] = "<i class=\"fa fa-question-circle\" aria-hidden=\"true\"></i>"
         end
-        riga_conto[2] = icona
     end
 
     erb :conti

@@ -52,3 +52,4 @@ build-iPhoneSimulator/
 # roba mia
 Gemfile.lock
 *.db
+shotgun.sh
