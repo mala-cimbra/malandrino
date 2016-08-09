@@ -60,17 +60,68 @@ def sistema_categoria(tmp_categoria)
     # nome_categoria -> nome
     
     # nome categoria finale visto che sono delimitate dal simbolo (questo qua) >
-    tmp_categoria_array = tmp_categoria.split(">") # splitta e prendi l'ultima, questo è un array
+    # cate_1 id 5 id_padre 0
+    # cate_2 id 9 id_padre 5
+    # cate_3 id 15 id_padre 9
+    # cate_1>cate_2>cate_3
+    # splitto ed esce [cate_1, cate_2, cate_3]
+    # prendo il last e cerco se esiste
+    # se esiste pochi cazzi, id_categoria nella transizione va nel db delle transizioni
+    #-----------------
+    # se la cat non esiste vado a prendere quello prima
+    # nuova_cat[] << tmp_categoria_array.pop
+    # e ricerco di nuovo
+    # ricerca tmp_categoria_array.last
+    # esiste?
+    # se sì ho trovato l'id della cat padre (id = 35)
+    # e ricostruisco l'albero
+    # db.execute(insert cat_padre id = 35, nome cat nuova_cat.last)
+    # nuova_cat.count - 1 = 0?  <--------------------------------------------
+    # se sì ho finito, fregancazzo                                          |
+    # se no, cerco l'id dell'array.pop (cerco e tolgo dall'array)           |
+    # creo un nuovo record con array.last                                   |
+    # e controllo se c'è una nuova_cat con la dimensione del nuova_cat-------
     
-    # carca l'id
+    tmp_categoria_array = tmp_categoria.split(">") # splitta, questo è un array
+    
+    # cerca l'id
     cerca_id_categoria = $db.execute("SELECT id FROM categorie WHERE nome_categoria='#{tmp_categoria_array.last}';")
     
-    if cerca_id_categoria.empty? # e qui comincia l'inferno
-    
+=begin    
+    if !cerca_id_categoria.empty? # e qui comincia l'inferno
+        cerca_id_categoria
     else
-    
+        nuova_cat[] << tmp_categoria.pop # caviamo l'ultimo indice dell'array e lo salviamo
     end
+=end    
+    nuova_cat = Array.new
+    padre_cat = Array.new
     
+    while cerca_id_categoria.empty? && tmp_categoria_array.size > 0 # finché non trova un cazzo cicla
+        nuova_cat << tmp_categoria.pop # inserisci l'ultima categoria non trovata in questo array e toglilo dalla ricerca
+        if tmp_categoria_array.size > 0
+            cerca_id_categoria = $db.execute("SELECT id FROM categorie WHERE nome_categoria='#{tmp_categoria_array.last}';") # cerca
+        else
+            $db.execute("INSERT INTO categorie VALUES(NULL, 0, '#{nuova_cat.last}');")
+        end
+    end
+
+=begin
+    # una volta fatto ciò abbiamo trovato o creiamo la categoria padre
+    if tmp_categoria_array.size = 0
+        
+    end
+=end
+
+    padre_cat << nuova_cat.pop
+    padre_cat_id = $db.execute("SELECT id FROM categorie WHERE nome_categoria='#{padre_cat.last}';").to_i
+    
+    while nuova_cat.size > 1 # adesso si creano dinamicamente le categorie
+        $db.execute("INSERT INTO categorie VALUES(NULL, #{padre_cat_id}, '#{nuova_cat.last}');")
+        padre_cat << nuova_cat.pop
+        padre_cat_id = $db.execute("SELECT id FROM categorie WHERE nome_categoria='#{padre_cat.last}';").to_i
+    end
+
 end
 
 
