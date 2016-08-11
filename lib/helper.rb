@@ -8,6 +8,10 @@ def debug(cosa, contenuto)
     pp contenuto
 end
 
+def safe_html(testo)
+    Rack::Utils.escape_html(text)
+end
+
 # sistemazione dati input
 
 def data_sistema(tmp_data_operazione)
