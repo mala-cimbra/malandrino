@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 
 get '/beneficiari'do
-    lista_beneficiari = $db.execute("SELECT nome_beneficiario FROM beneficiari;")
-    if lista_beneficiari.empty?
+    @lista_beneficiari = $db.execute("SELECT * FROM beneficiari;")
+    if @lista_beneficiari.empty?
         erb :beneficiari_vuoto
     else
+        
         erb :beneficiari
     end
 end
@@ -29,7 +30,14 @@ post '/beneficiari/new' do
 end
 
 get '/beneficiari/show/:id' do |id|
-
+    dati_beneficiario = $db.execute("SELECT * FROM beneficiari WHERE id = #{id};")
+    if dati_beneficiario.empty?
+        redirect to('/beneficiari')
+    else
+        @nome_beneficiario = dati_beneficiario[0][1]
+        @hash_info = JSON.parse(dati_beneficiario[0][2])
+        erb :beneficiari_show
+    end
 end
 
 get '/beneficiari/edit/:id' do |id|
