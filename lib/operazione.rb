@@ -33,7 +33,7 @@ get '/operazioni/new' do
     # per prima cosa listare i conti presenti
     # select * from conti;
     @conti = $db.execute("SELECT id, nome_conto, tipo_conto FROM conti;")
-    @beneficiari = $db.execute("SELECT * from beneficiari;")
+    @beneficiari = $db.execute("SELECT nome_beneficiario FROM beneficiari;")
     @categorie = $db.execute("SELECT * FROM categorie;")
     @tipo_transizione = $db.execute("SELECT * from tipo_transizione;")
     

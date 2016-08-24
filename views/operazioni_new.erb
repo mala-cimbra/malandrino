@@ -34,7 +34,7 @@ conto[1] sarà il nome del conto preso dal database
                <input name="beneficiario" id="beneficiario" list="beneficiari" class="pure-u-23-24" type="text" required>
                <datalist id="beneficiari">
                <% @beneficiari.sort.each do |beneficiario| %>
-               <option value="<%= beneficiario %>" />
+               <option value="<%= beneficiario[0] %>" />
                <% end %>
                </datalist>
            </div>
