@@ -20,8 +20,9 @@ post '/beneficiari/new' do
     numero_telefono = params["tel"] #
     email = params["email"]         #
     indirizzo = params["addr"]      #
+    note = params["note"]
 
-    dati_beneficiario = {numero_telefono: numero_telefono, email: email, indirizzo: indirizzo}
+    dati_beneficiario = {numero_telefono: numero_telefono, email: email, indirizzo: indirizzo, note: note}
     
     # metti nel db
     $db.execute("INSERT INTO beneficiari VALUES(NULL, '#{nome_beneficiario}', '#{dati_beneficiario.to_json}');")
@@ -34,6 +35,7 @@ get '/beneficiari/show/:id' do |id|
     if dati_beneficiario.empty?
         redirect to('/beneficiari')
     else
+        @id_beneficiario = dati_beneficiario[0][0]
         @nome_beneficiario = dati_beneficiario[0][1]
         @hash_info = JSON.parse(dati_beneficiario[0][2])
         erb :beneficiari_show
