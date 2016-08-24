@@ -24,7 +24,8 @@ end
 get '/' do
     erb :index
 end
-
+=begin
 not_found do
     redirect to('/')
 end
+=end
