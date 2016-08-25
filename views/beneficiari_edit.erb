@@ -1,0 +1,30 @@
+<div id="main">
+    <div class="content">
+        <h1 class="content-subhead">Modifica beneficiario</h1>
+    </div>
+<div class="content subhead">
+<form class="pure-form pure-form-stacked" action="/beneficiari/edit/<%= @id_beneficiario %>" method="post">
+    <fieldset>
+        <label for="nome">Nome e Cognome <i>(obbligatorio)</i></label>
+        <input class="pure-u-1 pure-u-md-1-2" name="nome_beneficiario" id="nome" type="text" value="<%= @nome_beneficiario %>" placeholder="Nome e Cognome" required />
+    <fieldset class="pure-group">
+        <input name="tel" type="text" class="pure-u-1 pure-u-md-2-3" value="<%= @hash_info["numero_telefono"] %>" placeholder="N&deg; di telefono" />
+        <input name="addr" type="text" class="pure-u-1 pure-u-md-2-3" value="<%= @hash_info["indirizzo"] %>" placeholder="Indirizzo" />
+        <input name="email" type="email" class="pure-u-1 pure-u-md-2-3" value="<%= @hash_info["email"] %>" placeholder="E-mail" />
+        <textarea name="note" class="pure-u-1 pure-u-md-2-3" placeholder="Note" ><%= @hash_info["note"] %></textarea>
+        <input name="id" type="hidden" value="<%= @id_beneficiario %>" />
+    </fieldset>
+
+        <div class="pure-g">
+        <div class="pure-u-1 pure-u-sm-1-2"><p align="center">
+            <a href="/beneficiari/show/<%= @id_beneficiario %>" class="button-error pure-button"><i class="fa fa-times" aria-hidden="true"></i> Annulla</a></p>
+            </div>
+        <div class="pure-u-1 pure-u-sm-1-2"><p align="center">
+            <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salva</button></p>
+        </div>
+        </div>
+    </fieldset>
+</form>
+
+</div>
+</div>
