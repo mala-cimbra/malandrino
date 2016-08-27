@@ -17,9 +17,9 @@ get '/operazioni' do
     @lista_operazioni = $db.execute("SELECT * FROM operazioni;")
 
     if @lista_operazioni.empty?
-        erb :operazioni_vuoto
+        erb :"operazioni/operazioni_vuoto"
     else
-        erb :operazioni
+        erb :"operazioni/operazioni"
     end
     # ora la rogna è mappare gli indici id_* alla tabella
     # quindi sotto di .map
@@ -36,7 +36,7 @@ get '/operazioni/new' do
     @beneficiari = $db.execute("SELECT nome_beneficiario FROM beneficiari;")
     @categorie = $db.execute("SELECT * FROM categorie;")
     @tipo_transizione = $db.execute("SELECT * from tipo_transizione;")
-    
+
     @conti.map do |conto|
         case conto[2]
         when "banca"
@@ -51,10 +51,10 @@ get '/operazioni/new' do
             conto[2] = "&#xf059;"
         end
     end
-    
+
     debug("conti", @conti)
-    
-    erb :operazioni_new
+
+    erb :"operazioni/operazioni_new"
 end
 
 post '/operazioni/new' do
@@ -62,15 +62,15 @@ post '/operazioni/new' do
     id_conto = params["conto"].to_i
     soldi = params["importo"].to_f
     descrizione = params["descrizione"]
-    
+
     # dati da controllare col db ed eventualmente aggiungere o dare un id
     tmp_data_operazione = params["data"]
     tmp_beneficiario = params["beneficiario"]
     tmp_tipo_transizione = params["tipo_transizione"]
     tmp_categoria = params["categoria"]
-    
+
     debug("parametri", params)
-    
+
     # data operazione da sistemare
     data_operazione = sistema_data(tmp_data_operazione)
     # beneficiario
@@ -79,7 +79,7 @@ post '/operazioni/new' do
     tipo_transizione = sistema_transizione(tmp_tipo_transizione)
     # categoria
     categoria = sistema_categoria(tmp_categoria)
-    
+
     redirect to ('/operazioni')
 end
 

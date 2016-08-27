@@ -20,7 +20,7 @@ get '/conti' do
     # il dato è posto come
     # [[conto1], [conto2], ...]
     @lista_conti = $db.execute("SELECT * FROM conti;")
-    
+
     # se i conti sono più di zero...
     # magari bisogna renderlo più elegante
     # solo che mi scazza avere HTML nel codice, preferirei avere tutto su erb
@@ -29,7 +29,7 @@ get '/conti' do
     else
         @message = "Non hai nessun conto. Creane uno!"
     end
-    
+
     # mappa l'icona
     # per ogni array cambia l'indice 2 con l'html dell'icona
     @lista_conti.map do |riga_conto|
@@ -47,11 +47,11 @@ get '/conti' do
         end
     end
 
-    erb :conti
+    erb :"conti/conti"
 end
 
 get '/conti/new' do
-    erb :conti_new
+    erb :"conti/conti_new"
 end
 
 post '/conti/new' do
