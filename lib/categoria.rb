@@ -9,5 +9,5 @@ pagina delle categorie
 
 get '/categorie' do
 
-    erb :categorie
+    erb :"categorie/categorie"
 end
