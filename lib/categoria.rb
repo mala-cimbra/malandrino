@@ -6,3 +6,8 @@ pagina delle categorie
 
 
 =end
+
+get '/categorie' do
+
+    erb :categorie
+end
