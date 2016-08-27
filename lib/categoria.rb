@@ -2,9 +2,8 @@
 #--------
 =begin
 pagina delle categorie
-
-
-
+DATABASE
+ID - id_cat_padre - nome_categoria
 =end
 
 get '/categorie' do
@@ -18,9 +17,16 @@ get '/categorie' do
 end
 
 get '/categorie/new' do
+    erb :"categorie/categorie_new"
 end
 
 post '/categorie/new' do
+    lista_categorie = $db.execute("SELECT * FROM categorie;");
+    nome_categoria = params["nome_categoria"]
+    array_categoria = nome_categoria.split(">")
+
+
+    $db.execute("INSERT INTO categorie VALUES(NULL, #{id_cat_padre}, '#{nome_categoria}');")
 end
 
 
