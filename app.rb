@@ -21,8 +21,10 @@ libs.each do |lib|
 end
 #----------------
 
+
+# pagina index
 get '/' do
-    erb :index
+    erb :index # mostra index
 end
 =begin
 not_found do

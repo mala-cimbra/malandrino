@@ -16,10 +16,11 @@ get '/operazioni' do
     # tirami fuori la lista delle operazioni
     @lista_operazioni = $db.execute("SELECT * FROM operazioni;")
 
+    # se la lista operazioni è vuota
     if @lista_operazioni.empty?
-        erb :"operazioni/operazioni_vuoto"
+        erb :"operazioni/operazioni_vuoto" # mostra file che dice di aggiungere
     else
-        erb :"operazioni/operazioni"
+        erb :"operazioni/operazioni" # lista le operazioni
     end
     # ora la rogna è mappare gli indici id_* alla tabella
     # quindi sotto di .map
@@ -31,12 +32,18 @@ end
 
 get '/operazioni/new' do
     # per prima cosa listare i conti presenti
-    # select * from conti;
     @conti = $db.execute("SELECT id, nome_conto, tipo_conto FROM conti;")
+
+    # listare i beneficiari
     @beneficiari = $db.execute("SELECT nome_beneficiario FROM beneficiari;")
+
+    # listare le categorie
     @categorie = $db.execute("SELECT * FROM categorie;")
+
+    # listare i tipi di transizione bancomat, diretta, etc..
     @tipo_transizione = $db.execute("SELECT * from tipo_transizione;")
 
+    # per ogni conto tira fuori l'iconcina
     @conti.map do |conto|
         case conto[2]
         when "banca"
@@ -48,12 +55,13 @@ get '/operazioni/new' do
         when "paypal"
             conto[2] = "&#xf1ed;"
         else
-            conto[2] = "&#xf059;"
+            conto[2] = "&#xf059;" # generico
         end
     end
 
-    debug("conti", @conti)
+    # debug("conti", @conti)
 
+    # mostra la maschera della nuova operazione
     erb :"operazioni/operazioni_new"
 end
 
@@ -77,18 +85,22 @@ post '/operazioni/new' do
     beneficiario = sistema_beneficiario(tmp_beneficiario)
     # tipo_transizione
     tipo_transizione = sistema_transizione(tmp_tipo_transizione)
-    # categoria
+    # categoria TODO: da rivedere che ormai ce l'ho quasi fatta
     categoria = sistema_categoria(tmp_categoria)
 
+    # torna alla lista delle operazioni
     redirect to ('/operazioni')
 end
 
+# boh, vederla in dettaglio
 get '/operazioni/:id' do |id|
 
 end
 
+# modificarla giustamente
 get '/operazioni/edit/:id' do |id|
 end
 
+# eliminarla giustamente
 get '/operazioni/delete/:id' do |id|
 end
