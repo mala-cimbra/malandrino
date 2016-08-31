@@ -59,7 +59,7 @@ def sistema_transizione(tmp_tipo_transizione)
         cerca_id_tipo_transizione[0].to_i
     end
 end
-
+=begin
 # TODO: da sistemare, ma manca poco
 def sistema_categoria(tmp_categoria)
     # la categoria contiene anche le sottocategorie
@@ -102,6 +102,7 @@ def sistema_categoria(tmp_categoria)
         nuova_cat[] << tmp_categoria.pop # caviamo l'ultimo indice dell'array e lo salviamo
     end
 =end
+=begin
     nuova_cat = Array.new
     padre_cat = Array.new
 
@@ -120,7 +121,7 @@ def sistema_categoria(tmp_categoria)
 
     end
 =end
-
+=begin
     padre_cat << nuova_cat.pop
     padre_cat_id = $db.execute("SELECT id FROM categorie WHERE nome_categoria='#{padre_cat.last}';").to_i
 
@@ -131,3 +132,4 @@ def sistema_categoria(tmp_categoria)
     end
 
 end
+=end

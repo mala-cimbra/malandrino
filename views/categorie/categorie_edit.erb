@@ -1,1 +1,24 @@
- 
+<div id="main">
+    <div class="content">
+        <h1 class="content-subhead">Modifica categoria</h1>
+    </div>
+<div class="content subhead">
+<form class="pure-form pure-form-stacked" action="/categorie/edit/<%= @dati_categoria[0][0] %>" method="post">
+    <fieldset>
+        <label for="nome">Nome categoria <i>(obbligatorio)</i></label>
+        <input class="pure-u-1 pure-u-md-1-2" name="nome_categoria" id="categoria" type="text" placeholder="Categoria" value="<%= @dati_categoria[0][2] %>" required />
+        <input name="id" type="hidden" value="<%= @dati_categoria[0][0] %>" />
+        <div class="pure-g">
+        <div class="pure-u-1 pure-u-sm-1-2"><p align="center">
+            <a href="/categorie" class="button-error pure-button"><i class="fa fa-times" aria-hidden="true"></i> Annulla</a></p>
+            </div>
+        <div class="pure-u-1 pure-u-sm-1-2"><p align="center">
+            <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Modifica</button></p>
+        </div>
+        </div>
+    </fieldset>
+</form>
+</div>
+
+</div>
+

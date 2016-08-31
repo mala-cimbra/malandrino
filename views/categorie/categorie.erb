@@ -1,1 +1,33 @@
- 
+<div id="main">
+    <div class="content">
+        <h1 class="content-subhead">Lista Categorie</h1>
+    </div>
+    <div class="content">
+        <table width=80% class="pure-table pure-table-horizontal">
+        <thead>
+        <tr>
+            <th>Categoria</th>
+            <th>N&deg; op.</th>
+            <th>Speso</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @lista_categorie.each do |categoria| %>
+        <tr>
+            <td><a href="/categorie/show/<%= categoria[0] %>"><%= categoria[2] %></a></td>
+            <td><i>num op</i></td>
+            <td><i>schei spesi</i></td>
+            <td><a href="/categorie/edit/<%= categoria[0] %>"><i class="fa fa-pencil" aria-hidden="true"></i></td>
+        </tr>
+        <% end %>
+        </tbody>
+        </table>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1 pure-u-sm-1-2"></div>
+        <div class="pure-u-1 pure-u-sm-1-2"><p align="center"><a href="/categorie/new" class="pure-button pure-button-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Nuova Categoria</a></p>
+        </div>
+    </div>
+</div>

@@ -32,16 +32,16 @@ end
 
 get '/operazioni/new' do
     # per prima cosa listare i conti presenti
-    @conti = $db.execute("SELECT id, nome_conto, tipo_conto FROM conti;")
+    @conti = $db.execute("SELECT id, nome_conto, tipo_conto, valuta FROM conti;")
 
     # listare i beneficiari
     @beneficiari = $db.execute("SELECT nome_beneficiario FROM beneficiari;")
 
     # listare le categorie
-    @categorie = $db.execute("SELECT * FROM categorie;")
+    @categorie = $db.execute("SELECT nome_categoria FROM categorie;")
 
     # listare i tipi di transizione bancomat, diretta, etc..
-    @tipo_transizione = $db.execute("SELECT * from tipo_transizione;")
+    @tipo_transizione = $db.execute("SELECT nome_tipo_transizione FROM tipo_transizione;")
 
     # per ogni conto tira fuori l'iconcina
     @conti.map do |conto|
@@ -59,7 +59,8 @@ get '/operazioni/new' do
         end
     end
 
-    # debug("conti", @conti)
+    #data di oggi
+    @oggi = Time.now.year.to_s + "-" + Time.now.month.to_s + "-" + Time.now.day.to_s
 
     # mostra la maschera della nuova operazione
     erb :"operazioni/operazioni_new"
