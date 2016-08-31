@@ -68,7 +68,7 @@ end
 
 post '/operazioni/new' do
     # dati che non sono da filtrare/controllare
-    id_conto = params["conto"].to_i
+    conto = params["conto"]
     soldi = params["importo"].to_f
     descrizione = params["descrizione"]
 
@@ -78,16 +78,23 @@ post '/operazioni/new' do
     tmp_tipo_transizione = params["tipo_transizione"]
     tmp_categoria = params["categoria"]
 
-    debug("parametri", params)
+    #debug("parametri", params)
 
     # data operazione da sistemare
     data_operazione = sistema_data(tmp_data_operazione)
+
     # beneficiario
     beneficiario = sistema_beneficiario(tmp_beneficiario)
+
     # tipo_transizione
     tipo_transizione = sistema_transizione(tmp_tipo_transizione)
+
     # categoria TODO: da rivedere che ormai ce l'ho quasi fatta
     categoria = sistema_categoria(tmp_categoria)
+
+    # inserisci nel db
+
+
 
     # torna alla lista delle operazioni
     redirect to ('/operazioni')

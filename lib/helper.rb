@@ -14,7 +14,6 @@ def safe_html(testo)
 end
 
 # sistemazione dati input
-
 def data_sistema(tmp_data_operazione)
     data_array = tmp_data_operazione.split("-")
     # anno - mese - giorno
@@ -28,7 +27,7 @@ end
 
 def sistema_beneficiario(tmp_beneficiario)
     # cerca id del beneficiario tramite nome_beneficiario
-    cerca_id_beneficiario = $db.execute("SELECT id FROM beneficiari WHERE nome_beneficiario='#{tmp_beneficiario}';")
+    cerca_id_beneficiario = $db.execute("SELECT id FROM beneficiari WHERE nome_beneficiario like '#{tmp_beneficiario}';")
 
     # il beneficiario esiste?
     if cerca_id_beneficiario.empty? # dice vero se l'array è vuoto
@@ -36,7 +35,7 @@ def sistema_beneficiario(tmp_beneficiario)
         $db.execute("INSERT INTO beneficiari VALUES(NULL, '#{tmp_beneficiario}', '{}');")
 
         #ritorniamo l'id del nuovo beneficiario
-        id = $db.execute("SELECT id FROM beneficiari WHERE nome_beneficiario='#{tmp_beneficiario}';")
+        id = $db.execute("SELECT id FROM beneficiari WHERE nome_beneficiario like '#{tmp_beneficiario}';")
         id.to_i # ritorna l'id
     else
         # ritorna l'id trovato
@@ -45,20 +44,25 @@ def sistema_beneficiario(tmp_beneficiario)
 end
 
 def sistema_transizione(tmp_tipo_transizione)
-    cerca_id_tipo_transizione = $db.execute("SELECT id FROM tipo_transizione WHERE nome_tipo_transizione='#{tmp_tipo_transizione}';")
+    cerca_id_tipo_transizione = $db.execute("SELECT id FROM tipo_transizione WHERE nome_tipo_transizione like '#{tmp_tipo_transizione}';")
 
     if cerca_id_tipo_transizione.empty?
         # se è vuoto aggiungilo
         $db.execute("INSERT INTO tipo_transizione VALUES(NULL, '#{tmp_tipo_transizione}');")
 
         # ritorniamo l'id del tipo transizione
-        id = $db.execute("SELECT id FROM tipo_transizione WHERE nome_tipo_transizione='#{tmp_tipo_transizione}';")
+        id = $db.execute("SELECT id FROM tipo_transizione WHERE nome_tipo_transizione like '#{tmp_tipo_transizione}';")
         id.to_i # ritorna l'id
     else
         # [0] perché i dati te li sputa in array annidati
         cerca_id_tipo_transizione[0].to_i
     end
 end
+
+def sistema_categoria(tmp_categoria)
+
+end
+
 =begin
 # TODO: da sistemare, ma manca poco
 def sistema_categoria(tmp_categoria)
